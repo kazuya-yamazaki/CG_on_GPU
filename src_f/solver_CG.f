@@ -50,7 +50,7 @@
       integer(kind=kint ) :: MAXIT
       real   (kind=kreal) :: TOL, W, SS
       
-      integer(kind=8) :: i,j,k
+      integer(kind=kint) :: i,j,k
 
 !C
 !C +-------+
@@ -278,7 +278,7 @@
       RESID= dsqrt(DNRM2/BNRM2)
 
 !C##### ITERATION HISTORY
-      if (my_rank.eq.0 .and. (ITER == 1 .or. RESID .le. TOL)) then
+      if (my_rank.eq.0) then
         write (*, 1000) ITER, RESID
       endif
  1000   format (i5, 1pe16.6)

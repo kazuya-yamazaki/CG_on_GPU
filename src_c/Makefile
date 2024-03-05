@@ -12,7 +12,7 @@ OBJS =\
 	input_cntl.o\
 	input_grid.o\
 	define_file_name.o\
-	mat_con0.o\
+	mat_con0_atomic.o\
 	mat_con1.o\
 	mat_ass_main.o\
 	mat_ass_bc.o\
