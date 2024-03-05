@@ -1,0 +1,13 @@
+../pmesh/pcube
+2000
+1.0 1.0
+1.0e-08
+0
+
+--- Format ---
+1st line: basename of the grid definition files (relative path)
+2nd line: max number of iterations
+3rd line: (heat conductivity) (heating per volume)
+4th line: residual threshold to finish iterations
+5th line: should be always 0
+6th line and below: ignored
