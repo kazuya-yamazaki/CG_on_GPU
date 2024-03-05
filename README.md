@@ -33,8 +33,9 @@ Wisteria Aqariusで実行する場合は、下記コマンドでNVIDIA HPC SDK�
 ```
 module load nvidia nvmpi cuda
 ```
-次に、ディレクトリ`${SAMPLEROOT}/pmesh/`に移動し、`mpif90 pmesh.f`を実行します。
-さらに、ディレクトリ`${SAMPLEROOT}/src/`に移動し、`make`を実行します。
+まず、ディレクトリ`${SAMPLEROOT}/pmesh/`に移動し、`mpif90 -o pmesh pmesh.f`を実行します。
+
+次に、主プログラムのディレクトリに移動します。C版を使う場合は`${SAMPLEROOT}/src_c/`、FORTRAN版を使う場合は`${SAMPLEROOT}/src_c/`に移動し、`make`を実行します。
 ファイル`${SAMPLEROOT}/run/prog_gpu`が生成されていれば成功です。
 
 ### 格子生成プログラムを実行する
@@ -42,7 +43,7 @@ module load nvidia nvmpi cuda
 cd ${SAMPLEROOT}/pmesh/
 
 # Wisteria Aquariusで実行する場合
-pjsub pjsub_pmesh.sh
+pjsub pjsub_pmesh.sh # スクリプト内のyour_group_nameをグループ名に置き換えてください
 # ワークステーションなどで実行する場合
 mpirun -n 1 ./a.out
 ```
@@ -51,15 +52,15 @@ mpirun -n 1 ./a.out
 # Wisteria Odysseyで実行する場合
 cd ${SAMPLEROOT}/pmesh/
 module purge; module load fj
-mpifrtpx pemsh.f
-pjsub pjsub_pmesh_odyssey.sh
+mpifrtpx -o pmesh pemsh.f
+pjsub pjsub_pmesh_odyssey.sh # スクリプト内のyour_group_nameをグループ名に置き換えてください
 ```
 ### 主プログラムを実行する
 ```
 cd ${SAMPLEROOT}/run/
 
 # Wisteria Aquariusで実行する場合
-pjsub pjsub_run.sh
+pjsub pjsub_run.sh # スクリプト内のyour_group_nameをグループ名に置き換えてください
 # ワークステーションなどで実行する場合
 mpirun -n 1 ./prog_gpu
 ```
@@ -119,7 +120,7 @@ NVIDIA HPC SDK 24.01の時点では、FORTRAN版はC版に比べて1.6倍の時�
 cd ${SAMPLEROOT}/pmesh/
 
 # Wisteria Aquariusで8並列で実行する場合
-pjsub pjsub_pmesh8.sh
+pjsub pjsub_pmesh8.sh # スクリプト内のyour_group_nameをグループ名に置き換えてください
 # ワークステーションなどで実行する場合
 mpirun -n 並列数 ./a.out
 ```
@@ -130,7 +131,7 @@ Aquariusで実行する場合、ジョブスクリプトのノード数(1箇所)
 cd ${SAMPLEROOT}/run/
 
 # Wisteria Aquariusで8並列で実行する場合
-pjsub pjsub_run8.sh
+pjsub pjsub_run8.sh # スクリプト内のyour_group_nameをグループ名に置き換えてください
 # ワークステーションなどで実行する場合
 mpirun -n 並列数 ./prog_gpu
 ```
