@@ -92,7 +92,8 @@
       do i= 1, N
         if (XYZ(i,1).eq.0.d0.and.XYZ(i,2).eq.0.d0.
      &                       and.XYZ(i,3).eq.0.d0) then
-          write (*,'(2i8,1pe16.6)') my_rank, i, X(i)
+          write (*,'("Value on edge (",2i8,")=",1pe16.6)')              &
+     &            my_rank, i, X(i)
         endif
       enddo
 

@@ -47,14 +47,6 @@ pjsub pjsub_pmesh.sh # スクリプト内のyour_group_nameをグループ名に
 # ワークステーションなどで実行する場合
 mpirun -n 1 ./a.out
 ```
-なお、Wisteriaでは、Odysseyで格子生成するほうがトークン消費が少なくなります（格子ファイルはOdysseyで出力したものをAquariusで使えます）。
-```
-# Wisteria Odysseyで実行する場合
-cd ${SAMPLEROOT}/pmesh/
-module purge; module load fj
-mpifrtpx -o pmesh pemsh.f
-pjsub pjsub_pmesh_odyssey.sh # スクリプト内のyour_group_nameをグループ名に置き換えてください
-```
 ### 主プログラムを実行する
 ```
 cd ${SAMPLEROOT}/run/
@@ -65,6 +57,8 @@ pjsub pjsub_run.sh # スクリプト内のyour_group_nameをグループ名に�
 mpirun -n 1 ./prog_gpu
 ```
 上記の流れを一度行った後に、コードや設定を変えずに再実行する場合は、コンパイルと格子生成を省略して主プログラムをすぐに実行できます。
+
+格子の隣接状況(connectivity)の算出に要した時間は`*** matrix conn. ? sec`、ポアソン方程式求解のための行列要素設定に要した時間は`*** matrix ass. ? sec`、CG法によるポアソン方程式求解に要した時間は`*** real  COMP. ? sec`として出力されます。また、熱伝導方程式を解いた結果得られた直方体領域の端での無次元温度が`Value on edge=?`という形で出力されます。
 
 ## 格子サイズや使用GPU数を変える
 主プログラムを実行する前に、下記の流れで設定ファイルを編集し格子を再生成する必要があります。
@@ -132,4 +126,4 @@ Aquariusで実行する場合、ジョブスクリプトのノード数(1箇所)
 ## 行列生成部分をGPU化する
 サブルーチンMAT_CON0の行列生成処理は、変数INLUの同一インデックスにループから複数回アクセスする可能性があるため、そのまま並列化するとアクセス競合が起きて誤った結果になるおそれがあります。そのため、標準コードではGPU化せず、CPU上で逐次処理しているため時間がかかります。しかし、`!$acc atomic`による排他アクセスを利用すると、競合を避けてGPUで並列化することができます。そのコードはmat_con0_atomic.f (C版ではmat_con0_atomic.c)に記載しています。Makefileのmat_con0.o をmat_con0_atomic.o に置き換え、`make clean`したうえで`make`すると行列生成GPU版を利用することができます。
 
-C言語では、外側（左側）の次元が非常に長い配列に限ってCPU・GPU間の転送が遅いという制約があります。行列生成部分をGPU化する際にこの種の配列の転送が追加で必要になったため、逆に所要時間が増えています。ただ、ループそのものは`#pragma acc atomic`によって高速化しています。
+C言語では、外側（左側）の次元が非常に長い配列に限って、OpenACCでのCPU・GPU間の転送が遅いという制約があります。行列生成部分をGPU化する際に、この種の配列の転送が増えたため、逆に`*** matrix conn.`での所要時間が増えています。ただ、行列生成処理のループそのものは`#pragma acc atomic`によって高速化しています。また、Fortranでは上記のような性能低下は特に起きないため、行列生成処理のGPU化によって`*** matrix conn.`の所要時間が減少します。

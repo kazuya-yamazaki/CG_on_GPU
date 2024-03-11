@@ -207,16 +207,6 @@
       call SOLVER_SEND_RECV                                             &
      &   ( N, NP, NEIBPETOT, NEIBPE, IMPORT_INDEX, IMPORT_ITEM,         &
      &     EXPORT_INDEX, EXPORT_ITEM, WS, WR, WW(1,P), my_rank)
-     
-!      if(my_rank == 0 .and. iter == 1) then
-!!$acc update host(D,AMAT,WW,index,item)
-!        open(10, file="settings.bin", access="stream",
-!     &        form="unformatted", status="replace")
-!        write(10) N, NP, NPLU, P, Q
-!        write(10) D, AMAT, WW
-!        write(10) index, item
-!        close(10)
-!      endif
 
 !$omp parallel do private(j,k,i,WVAL)
 !$acc kernels loop private(i,WVAL)

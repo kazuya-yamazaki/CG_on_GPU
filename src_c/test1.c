@@ -101,8 +101,9 @@ int main(int argc,char* argv[])
     if (XYZ[i][0]==0.e0) {
     if (XYZ[i][1]==0.e0) {
     if (XYZ[i][2]==0.e0) {
-      printf("%6d%8d%16.6e\n\n\n", my_rank, i+1, X[i]);}
+      printf("Value on edge (%6d, %8d) = %16.6e\n\n\n", my_rank, i+1, X[i]);
     }}}
+  }
 
   PFEM_FINALIZE() ;
 }
