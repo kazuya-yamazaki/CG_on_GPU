@@ -14,7 +14,7 @@ GPU移植のための実装例（共役勾配法によるポアソン方程式�
   * [第209回講習会「OpenACCとMPIによるマルチGPUプログラミング入門」](https://www.cc.u-tokyo.ac.jp/events/lectures/209/)
   * [第211回講習会「MPI+OpenMPで並列化されたFortranプログラムのGPUへの移行手法」](https://www.cc.u-tokyo.ac.jp/events/lectures/211/)
 
-プログラム(`src_c/`および`src_f/`内)の大まかな流れは下記の通りです。
+ソース群(`src_c/`および`src_f/`内)の大まかな構成は下記の通りです。
 * エントリーポイント: `test1.c`および`test1.f`
 * 行列生成関連の処理: `mat_`で始まるファイル群
 * CG法ソルバー主要部分: `solver_CG.c`および`solver_CG.f`
