@@ -1,4 +1,4 @@
-# OpenACC_CG_sample
+# CG_on_GPU
 GPU移植のための実装例（共役勾配法によるポアソン方程式求解）
 
 ## 概要
