@@ -9,11 +9,7 @@
 extern FILE *fp_log;
 void MAT_ASS_BC()
 {
-  int i,j,k,in,ib,ib0,icel;
-  int in1,in2,in3,in4,in5,in6,in7,in8;
-  int iq1,iq2,iq3,iq4,iq5,iq6,iq7,iq8;
-  int iS,iE;
-  double STRESS,VAL;
+  int i,j,k,in,ib,ib0;
   double t0;
   
   IWKX=(KINT**) allocate_matrix(sizeof(KINT),NP,2);
