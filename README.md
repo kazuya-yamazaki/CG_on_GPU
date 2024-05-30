@@ -50,6 +50,8 @@ module load nvidia nvmpi cuda
 次に、主プログラムのディレクトリに移動します。C版を使う場合は`${SAMPLEROOT}/src_c/`、FORTRAN版を使う場合は`${SAMPLEROOT}/src_f/`に移動し、`make`を実行します。
 ファイル`${SAMPLEROOT}/run/prog_gpu`が生成されていれば成功です。
 
+なお、CPU用のOpenMPの指示文を残しているので、MakefileのOpenACC・GPU関連のオプション(`-acc -gpu=cc80 -cuda -Minfo=accel -DOPENACC`など)を`-mp`に置き換えることで、CPU上でMPI+OpenMPのハイブリッド実行を行うこともできます。
+
 ### 格子生成プログラムを実行する
 ```
 cd ${SAMPLEROOT}/pmesh/
